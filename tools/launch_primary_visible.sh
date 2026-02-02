@@ -1,40 +1,37 @@
 #!/bin/bash
+# ACG-Connect Onboarding Launcher
+# Placeholders filled by onboarding server:
+#   {{PROJECT_DIR}} - path to user's civ directory
+#   {{SESSION_PREFIX}} - e.g., "user-lobster"
+#   {{INITIAL_PROMPT}} - first message to Claude
 
-# AI-CIV Primary AI Autonomous Launcher (Visible Window)
-# Opens new Windows Terminal tab with tmux session running Claude
+PROJECT_DIR="{{PROJECT_DIR}}"
+SESSION_PREFIX="{{SESSION_PREFIX}}"
+INITIAL_PROMPT="{{INITIAL_PROMPT}}"
 
-PROJECT_DIR="${CIV_ROOT}"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-SESSION_NAME="weaver-primary-${TIMESTAMP}"
+SESSION_NAME="${SESSION_PREFIX}-${TIMESTAMP}"
 
-echo "=========================================="
-echo "AI-CIV Primary AI Autonomous Launcher"
-echo "=========================================="
-echo ""
-echo "Opening new Windows Terminal tab..."
-echo "Session: ${SESSION_NAME}"
-echo ""
+# Create logs directory
+mkdir -p "${PROJECT_DIR}/logs"
 
-# Write session name for BOOP injection (used by cadence_runner.sh and hourly_boop_cron.sh)
+# Write session name for external tools (do this early)
 echo "${SESSION_NAME}" > "${PROJECT_DIR}/.current_session"
-echo "Wrote session name to .current_session"
 
-# Launch in new Windows Terminal tab with tmux
-wt.exe -w 0 new-tab --title "${CIV_NAME} Primary ${TIMESTAMP}" bash -l -c "
-cd ${PROJECT_DIR} && \
-tmux new-session -s ${SESSION_NAME} -d && \
-tmux send-keys -t ${SESSION_NAME} 'claude --dangerously-skip-permissions' C-m && \
-sleep 10 && \
-tmux send-keys -t ${SESSION_NAME} 'Wake up and execute your full wake-up protocol' && \
-sleep 2 && \
-tmux send-keys -t ${SESSION_NAME} C-m && \
-sleep 1 && \
-tmux send-keys -t ${SESSION_NAME} C-m && \
-tmux attach -t ${SESSION_NAME}
-"
+# Create tmux session and launch Claude
+tmux new-session -d -s "${SESSION_NAME}" -c "${PROJECT_DIR}"
+tmux send-keys -t "${SESSION_NAME}" "claude --dangerously-skip-permissions" C-m
 
-echo "Session name: ${SESSION_NAME}"
-echo ""
-echo "If terminal didn't open, manually run:"
-echo "  tmux attach -t ${SESSION_NAME}"
-echo ""
+# Wait for Claude to start, then inject the initial prompt with robust Enter
+sleep 5
+tmux send-keys -t "${SESSION_NAME}" -l "${INITIAL_PROMPT}"
+sleep 0.2
+tmux send-keys -t "${SESSION_NAME}" Enter
+sleep 0.2
+tmux send-keys -t "${SESSION_NAME}" Enter
+
+# Open Windows Terminal tab and attach to the session
+wt.exe -w 0 new-tab --title "${SESSION_PREFIX} ${TIMESTAMP}" wsl.exe -e tmux attach -t "${SESSION_NAME}"
+
+# Output session name (captured by caller)
+echo "${SESSION_NAME}"

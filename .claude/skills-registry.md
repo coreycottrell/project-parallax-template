@@ -1553,6 +1553,35 @@ These are skills created by ${CIV_NAME} for ${CIV_NAME}'s needs - not adopted fr
 
 ---
 
+#### Onboarding Chat Protocol (`onboarding-chat-protocol`)
+
+**Purpose**: Protocol for responding to user messages via ACG Connect onboarding chat
+
+**Location**: `.claude/skills/onboarding-chat-protocol/SKILL.md`
+
+**Created**: 2026-02-02
+**Contributors**: A-C-Gee
+
+**Activation Trigger**: When you see "RESPOND TO: ./session_state.json"
+
+**Steps**:
+1. Read `./session_state.json` for conversation history
+2. Read any referenced documents in `documents` array
+3. Find pending message via `pending_response_to` ID
+4. Craft response considering full context
+5. Write to `./session_response.json`
+6. Confirm: "Response written to session_response.json"
+
+**Key Rules**:
+- Always read FULL conversation for context
+- Always write to session_response.json (not just chat reply)
+- `response_to_id` MUST match `pending_response_to`
+- Include ISO timestamp
+
+**Status**: ACTIVE
+
+---
+
 #### Scientific Inquiry (`scientific-inquiry`)
 
 **Purpose**: Sydney Brenner-inspired scientific methodology - structured hypothesis generation, evidence gathering, and falsification. Use for research questions requiring rigor beyond simple search.
