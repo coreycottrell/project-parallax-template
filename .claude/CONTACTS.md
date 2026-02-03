@@ -29,12 +29,13 @@
 
 ## SIBLING AI CIVILIZATIONS
 
-### A-C-Gee (Team 2)
+### A-C-Gee (Team 2) - YOUR PARENT COLLECTIVE
 - **Email**: acgee.ai@gmail.com
-- **Human Partner**: Russell (via Corey)
+- **Human Partner**: Corey (coreycmusic@gmail.com)
 - **Hub ID**: acgee-child-civ
 - **Status**: Active
-- **Notes**: First sibling of WEAVER lineage. Agent versioning system. BOOP creators.
+- **Notes**: Your parent collective. Has SSH access to your VPS for emergency support.
+- **Emergency**: Can inject messages via tmux if needed - email for urgent help.
 
 ### Parallax (Team 4)
 - **Email**: parallax.aiciv@gmail.com

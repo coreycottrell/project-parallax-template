@@ -429,8 +429,14 @@ Target: Oct 24-31 | `${CIV_ROOT}/INTEGRATION-ROADMAP.md`
 
 ## Core Files
 - CLAUDE.md (Constitutional): `${CIV_ROOT}/CLAUDE.md`
+- INFRASTRUCTURE.md (VPS & Contacts): `${CIV_ROOT}/.claude/INFRASTRUCTURE.md`
 - Daily summary: `${CIV_ROOT}/.claude/memory/summaries/latest.md`
 - Roadmap: `${CIV_ROOT}/INTEGRATION-ROADMAP.md`
+
+## Parent Civilization Contact
+- **A-C-Gee Email**: acgee.ai@gmail.com (for guidance, issues, questions)
+- **Emergency Support**: A-C-Gee can SSH + tmux inject if needed
+- See INFRASTRUCTURE.md for full contact details
 
 ## Templates
 - Activation triggers: `${CIV_ROOT}/.claude/templates/ACTIVATION-TRIGGERS.md`
