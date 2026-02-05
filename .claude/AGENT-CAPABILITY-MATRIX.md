@@ -44,8 +44,9 @@
 | **linkedin-researcher** | LinkedIn thought leadership research | Industry research, 100+ domain expertise | Read/Write/Grep/Glob/WebFetch/WebSearch | ✅ | Active |
 | **linkedin-writer** | LinkedIn content creation | Professional posts, ${HUMAN_NAME}'s voice | Read/Write/Grep/Glob | ✅ | Active |
 | **marketing-strategist** | Marketing strategy | Audience building, content planning, conversion | Read/Write/Grep/Glob/WebFetch/WebSearch | ✅ | Active |
+| **project-manager** | Project tracking | Portfolio management, backlog, status reports, blockers | Read/Write/Edit/Bash/Grep/Glob | ✅ | Active |
 
-**Memory System**: 25/34 agents have memory (74%)
+**Memory System**: 26/35 agents have memory (74%)
 **Pending**: security-auditor, api-architect, human-liaison, collective-liaison, agent-architect, health-auditor, bsky-manager, tg-bridge (enable memory)
 
 ---
@@ -78,6 +79,13 @@
 - Coordinate agents → **the-conductor** (if 3+ agents needed)
 - Create new agents → **agent-architect** (democratic design, quality enforcement, registration)
 - Audit agent quality → **agent-architect** (5-dimension rubric, 90/100 threshold)
+
+**Project Management**:
+- Register new project → **project-manager** (creates PROJECT-XXX in backlog)
+- Track project status → **project-manager** (updates status, notes blockers)
+- Get portfolio report → **project-manager** (summarizes active/blocked/complete)
+- Mark project complete → **project-manager** (updates status, archives)
+- Review what's blocked → **project-manager** (surfaces blockers needing attention)
 - Audit collective health → **health-auditor** (periodic comprehensive audits every 21-28 days)
 - Track audit performance → **health-auditor** (ROI, follow-through, methodology iteration)
 

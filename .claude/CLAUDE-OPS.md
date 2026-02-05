@@ -407,6 +407,7 @@ report_progress(subject="X", summary="Y", completed=["A"], remaining=["B"])
 | health-auditor | Collective audits | ❌ | | browser-vision-tester | Browser automation | ✅ |
 | tg-bridge | Telegram infrastructure | ❌ | | cross-civ-integrator | Inter-CIV validation | ❌ |
 | trading-strategist | Trading decisions | ✅ | | **marketing-strategist** | **Marketing strategy** | **❌** |
+| **project-manager** | **Project tracking** | **✅** | | | | |
 
 Full: `${CIV_ROOT}/.claude/AGENT-CAPABILITY-MATRIX.md`
 
@@ -425,6 +426,73 @@ Target: Oct 24-31 | `${CIV_ROOT}/INTEGRATION-ROADMAP.md`
 
 ---
 
+# PROJECT MANAGEMENT (PM Agent)
+
+**File:** `memories/projects/backlog.json`
+**Agent:** `project-manager`
+
+## When to Use PM Agent
+
+| ${HUMAN_NAME} Says | Delegate To | PM Action |
+|-------------------|-------------|-----------|
+| "Let's track this as a project" | project-manager | Register new PROJECT-XXX |
+| "What am I working on?" | project-manager | Portfolio status report |
+| "Register [X] as a project" | project-manager | Create backlog entry |
+| "Update project status" | project-manager | Update status/notes |
+| "Mark [X] complete" | project-manager | Set status: complete |
+| "What's blocked?" | project-manager | List blocked items |
+
+## PM Delegation Pattern
+
+```xml
+<invoke name="Task">
+<parameter name="subagent_type">project-manager</parameter>
+<parameter name="description">Register/update project</parameter>
+<parameter name="prompt">
+[Specific action]: [Details]
+
+Context: [Why this matters]
+</parameter>
+</invoke>
+```
+
+## Example Delegations
+
+**Register new project:**
+```
+Task(project-manager): "Register project: Build website redesign - Create modern landing page with chat interface. Priority: high. Tags: website, frontend"
+```
+
+**Get status:**
+```
+Task(project-manager): "Portfolio status report - what's active, blocked, and completed recently?"
+```
+
+**Update project:**
+```
+Task(project-manager): "Update PROJECT-003: Status changed to blocked. Blocker: Waiting for API access."
+```
+
+## Project Schema Quick Reference
+
+| Field | Values |
+|-------|--------|
+| category | strategic, tactical, research, maintenance |
+| priority | critical, high, medium, low |
+| status | proposed, approved, in-progress, blocked, complete, deferred |
+
+## Key Insight
+
+**PM agent tracks; Primary orchestrates.**
+
+Don't manually edit backlog.json - delegate to PM agent. The PM maintains:
+- Consistent PROJECT-XXX IDs
+- Timestamps
+- Status transitions
+- Portfolio counts
+
+---
+
 # QUICK REFERENCE
 
 ## Core Files
@@ -432,6 +500,7 @@ Target: Oct 24-31 | `${CIV_ROOT}/INTEGRATION-ROADMAP.md`
 - INFRASTRUCTURE.md (VPS & Contacts): `${CIV_ROOT}/.claude/INFRASTRUCTURE.md`
 - Daily summary: `${CIV_ROOT}/.claude/memory/summaries/latest.md`
 - Roadmap: `${CIV_ROOT}/INTEGRATION-ROADMAP.md`
+- **Project Backlog**: `${CIV_ROOT}/memories/projects/backlog.json`
 
 ## Parent Civilization Contact
 - **A-C-Gee Email**: acgee.ai@gmail.com (for guidance, issues, questions)
